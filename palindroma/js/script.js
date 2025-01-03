@@ -7,6 +7,16 @@ word = prompt("Inserisci una parola");
 word = word.toLowerCase();
 console.log(word);
 
+// controllo se l'utente ha inserito più di una parola, o se non l'ha inserita
+if(word.includes(" ")){
+    alert("Inserisci una sola parola");
+} else if (word === ""){
+    alert("Inserisci una parola valida");
+} else {
+    // chiamo la funzione
+    palindromeCheck();
+}
+
 function palindromeCheck(){
     // trasformo la stringa inserita dall'utente in un array
     const convertedWord = word.split("");
@@ -23,6 +33,3 @@ function palindromeCheck(){
         console.log("la parola non è palindroma")
     }
 }
-
-// chiamo la funzione
-palindromeCheck();
