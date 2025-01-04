@@ -25,3 +25,15 @@ Domande da farsi quando si crea una funzione:
 - Se sì, di che tipo?
 
 Buon lavoro e buon divertimento! :faccia_leggermente_sorridente:
+
+EXTRA
+
+La linea guida comunque rimane di rimettervi in paro con gli esercizi consegnati durante il corso e di rivedere i punti su cui vi sentite meno sicuri.
+
+Successivamente potreste fare questo:
+
+- aggiungere, all'ultimo esercizio (palindroma e pari e dispari), una UI (User Interface) con Bootstrap e andare lavorare con input/output direttamente sulla pagina
+- fatta una versione base di UI, aggiungiamo a pari e dispari una funzione storico: non eliminate ogni volta il risultato, ad ogni nuova partita, aggiungete un risultato sopra all'ultimo ottenuto. Aggiungete dello stile ai vecchi risultati utilizzando bootstrap (qualcosa che indichi anche a colpo d'occhio "hai vinto", "hai perso")
+- Aggiungere infine un pulsante "pulisci storico partite" che vada ad eliminare tutte le partite giocate dalla pagina (simuliamo un loading? Abbiamo bisogno di chiedere conferma all'utente https://www.w3schools.com/jsref/met_win_confirm.asp? )
+
+Questi punti sono assolutamente opzionali, non vi preoccupate nel caso risultino difficili, è normale (sono extra per un motivo).
