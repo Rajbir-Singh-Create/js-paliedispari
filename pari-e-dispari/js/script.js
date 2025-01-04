@@ -1,5 +1,5 @@
 // Dichiarazione variabili
-let macNum;
+let machineNum;
 let userNum;
 
 // Inserimento dei dati dall'utente
@@ -10,18 +10,18 @@ console.log(`Hai scelto ${evenOrOdd}`);
 // Controllo degli input inseriti dall'utente
 if(evenOrOdd === "dispari" || evenOrOdd === "pari"){
     // Proseguo con l'inserimento del numero dall'utente
-    userNumberCheck();
+    userNumber();
 } else {
     alert("inserisci un valore valido");
 }
 
 
-function userNumberCheck() {
+function userNumber() {
     // Inserimento dei dati dall'utente
     userNum = prompt("inserisci un numero tra 1 e 5");
     userNum = parseInt(userNum);
     console.log(`Numero inserito dall'utente: ${userNum}`);
-    console.log(`Numero generato dalla macchina: ${machineNum(1, 5)}`);
+    console.log(`Numero generato dalla macchina: ${machineNumber(1, 5)}`);
 
     // Controllo degli input inseriti dall'utente
     if(userNum > 0 && userNum <= 5){
@@ -34,9 +34,9 @@ function userNumberCheck() {
 
 
 // Generazione numero random dalla macchina con una funzione
-function machineNum(min, max){
-        macNum = Math.round(Math.random() * (max - min) + min);
-        return macNum;
+function machineNumber(min, max){
+        machineNum = Math.round(Math.random() * (max - min) + min);
+        return machineNum;
 }
 
 
@@ -44,7 +44,7 @@ function machineNum(min, max){
 // Dichiariamo chi ha vinto
 function isEvenOrOdd(){
     // Somma dei due numeri
-    const sum = macNum + userNum;
+    const sum = machineNum + userNum;
     console.log(`La somma dei numeri: ${sum}`);
 
     const mod = 0;
