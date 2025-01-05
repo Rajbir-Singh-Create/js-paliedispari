@@ -6,22 +6,12 @@ let reversedWord = document.querySelector(".reversedWord");
 let reverseWord;
 let isPalindrome = document.querySelector(".palindrome");
 
-confirmButton.addEventListener("click", function() {
+confirmButton.addEventListener("click", function () {
     word = word.value.toLowerCase();
     insertedWord.innerHTML = `Parola inserita: ${word}`;
     console.log(word);
 
-    // controllo se l'utente ha inserito più di una parola, o se non l'ha inserita
-    if (word.includes(" ")) {
-        changeClasses();
-        isPalindrome.innerHTML = "Inserisci una sola parola";
-    } else if (word === "") {
-        changeClasses();
-        isPalindrome.innerHTML = "Inserisci una parola valida";
-    } else {
-        // chiamo la funzione
-        palindromeCheck();
-    }
+    wordCheck();
 });
 
 function palindromeCheck() {
@@ -44,11 +34,24 @@ function palindromeCheck() {
     }
 }
 
+function wordCheck() {
+    // controllo se l'utente ha inserito più di una parola, o se non l'ha inserita
+    if (word.includes(" ")) {
+        changeClasses();
+        isPalindrome.innerHTML = "Inserisci una sola parola";
+    } else if (word === "") {
+        changeClasses();
+        isPalindrome.innerHTML = "Inserisci una parola valida";
+    } else {
+        // chiamo la funzione
+        palindromeCheck();
+    }
+}
+
 // cambio le classi dell'output nel caso in cui i controlli falliscano
-function changeClasses(){
+function changeClasses() {
     insertedWord.classList.add("d-none");
     reversedWord.classList.add("d-none");
     isPalindrome.classList.remove("alert-danger");
     isPalindrome.classList.add("alert-danger");
-
 }
