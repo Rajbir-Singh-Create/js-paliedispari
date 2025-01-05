@@ -13,14 +13,11 @@ confirmButton.addEventListener("click", function() {
 
     // controllo se l'utente ha inserito più di una parola, o se non l'ha inserita
     if (word.includes(" ")) {
-        isPalindrome.classList.remove("alert-danger");
-        isPalindrome.classList.add("alert-danger");
+        changeClasses();
         isPalindrome.innerHTML = "Inserisci una sola parola";
     } else if (word === "") {
-        isPalindrome.classList.remove("alert-danger");
-        isPalindrome.classList.add("alert-danger");
+        changeClasses();
         isPalindrome.innerHTML = "Inserisci una parola valida";
-        // alert("Inserisci una parola valida");
     } else {
         // chiamo la funzione
         palindromeCheck();
@@ -45,4 +42,10 @@ function palindromeCheck() {
         isPalindrome.innerHTML = "La parola non è palindroma";
         console.log("la parola non è palindroma");
     }
+}
+
+// cambio le classi dell'output nel caso in cui i controlli falliscano
+function changeClasses(){
+    isPalindrome.classList.remove("alert-danger");
+    isPalindrome.classList.add("alert-danger");
 }
