@@ -1,11 +1,14 @@
-// inizializzo le variabili
+// dichiarazione delle variabili
 let word = document.querySelector(".word");
 const confirmButton = document.querySelector(".confirm");
-let reverseWord = "";
+let insertedWord = document.querySelector(".insertedWord")
+let reversedWord = document.querySelector(".reversedWord");
+let reverseWord;
+let isPalindrome = document.querySelector(".palindrome");
 
 confirmButton.addEventListener("click", function() {
     word = word.value.toLowerCase();
-    // TODO: stampare a schermo
+    insertedWord.innerHTML = `Parola inserita: ${word}`;
     console.log(word);
 
     // controllo se l'utente ha inserito più di una parola, o se non l'ha inserita
@@ -26,12 +29,15 @@ function palindromeCheck() {
 
     // inverto l'ordine degli elementi all'interno dell'array e lo ritrasformo in stringa
     reverseWord = convertedWord.reverse().join("").toLowerCase();
+    reversedWord.innerHTML = `Parola invertita: ${reverseWord}`;
     console.log(reverseWord);
 
     // controllo se la parla inserita è palindroma
     if (word === reverseWord) {
+        isPalindrome.innerHTML = "La parola è palindroma";
         console.log("la parola è palindroma");
     } else {
-        console.log("la parola non è palindroma")
+        isPalindrome.innerHTML = "La parola non è palindroma";
+        console.log("la parola non è palindroma");
     }
 }
