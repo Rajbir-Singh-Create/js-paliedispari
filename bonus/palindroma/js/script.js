@@ -46,6 +46,9 @@ function palindromeCheck() {
 
 // cambio le classi dell'output nel caso in cui i controlli falliscano
 function changeClasses(){
+    insertedWord.classList.add("d-none");
+    reversedWord.classList.add("d-none");
     isPalindrome.classList.remove("alert-danger");
     isPalindrome.classList.add("alert-danger");
+
 }
