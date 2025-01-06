@@ -1,31 +1,34 @@
 // Dichiarazione variabili
+const confirmButton = document.querySelector(".confirm");
+let selectedValue;
+let userNum = document.querySelector(".userNumber");
 let machineNum;
-let userNum;
+let machineNumberResult = document.querySelector(".machineNumberResult");
+let sumResult = document.querySelector(".sumResult");
+let finalResult = document.querySelector(".finalResult");
+let finalResultLose = document.querySelector(".finalResultLose");
 
-// Inserimento dei dati dall'utente
-let evenOrOdd = prompt("Pari o dispari?")
-evenOrOdd = evenOrOdd.toLowerCase();
-console.log(`Hai scelto ${evenOrOdd}`);
+// Al click del bottone
+confirmButton.addEventListener("click", function () {
+    // Ottengo il valore dell'opzione selezionata
+    let selectElement = document.querySelector(".selectOpt");
+    selectedValue = selectElement.value;
+    // console.log("Valore selezionato:", selectedValue);
 
-// Controllo degli input inseriti dall'utente
-if(evenOrOdd === "dispari" || evenOrOdd === "pari"){
-    // Proseguo con l'inserimento del numero dall'utente
+    // Chiamo la funzione che elabora l'inserimento del numero dall'utente
     userNumber();
-} else {
-    alert("inserisci un valore valido");
-}
+});
 
 
 function userNumber() {
-    // Inserimento dei dati dall'utente
-    userNum = prompt("inserisci un numero tra 1 e 5");
+    userNum = userNum.value;
     userNum = parseInt(userNum);
-    console.log(`Numero inserito dall'utente: ${userNum}`);
-    console.log(`Numero generato dalla macchina: ${machineNumber(1, 5)}`);
 
     // Controllo degli input inseriti dall'utente
-    if(userNum > 0 && userNum <= 5){
-        // chiamo la funzione per proseguire il gioco
+    if (userNum > 0 && userNum <= 5) {
+        // Chiamo la funzione per generare il numero dalla macchina
+        machineNumberResult.innerHTML = `Numero generato dalla macchina: ${machineNumber(1, 5)}`;
+        // Chiamo la funzione per proseguire il gioco
         isEvenOrOdd();
     } else {
         alert("Inserisci un numero valido, tra 1 e 5");
@@ -34,28 +37,41 @@ function userNumber() {
 
 
 // Generazione numero random dalla macchina con una funzione
-function machineNumber(min, max){
-        machineNum = Math.round(Math.random() * (max - min) + min);
-        return machineNum;
+function machineNumber(min, max) {
+    machineNum = Math.round(Math.random() * (max - min) + min);
+    return machineNum;
 }
 
 
 // Stabiliamo se la somma dei due numeri è pari o dispari (usando una funzione)
 // Dichiariamo chi ha vinto
-function isEvenOrOdd(){
+function isEvenOrOdd() {
     // Somma dei due numeri
     const sum = machineNum + userNum;
-    console.log(`La somma dei numeri: ${sum}`);
+    sumResult.innerHTML = `La somma dei numeri è: ${sum}`;
 
-    const mod = 0;
     // Controllo se il numero è pari o dispari
-    if(evenOrOdd === "pari" && mod === sum % 2){
-        alert("Hai vinto!");
-    } else if (evenOrOdd === "dispari" && mod !== sum % 2){
-        alert("Hai vinto!")
-    } else if (evenOrOdd === "pari" && mod !== sum % 2){
-        alert("Hai perso!");
-    } else if (evenOrOdd === "dispari" && mod === sum % 2){
-        alert("Hai perso!");
+    const mod = 0;
+
+    if (selectedValue === "pari" && mod === sum % 2) {
+        displayResultWin()
+    } else if (selectedValue === "dispari" && mod !== sum % 2) {
+        displayResultWin()
+    } else if (selectedValue === "pari" && mod !== sum % 2) {
+        displayResultLose()
+    } else if (selectedValue === "dispari" && mod === sum % 2) {
+        displayResultLose()
     }
+}
+
+// Funzione che cambia le classi degli elementi se si perde
+function displayResultLose() {
+    finalResult.classList.add("d-none");
+    finalResultLose.classList.remove("d-none");
+    finalResultLose.innerHTML = "Hai perso!";
+}
+
+// Funzione che cambia le classi degli elementi se si vince
+function displayResultWin(){
+    finalResult.innerHTML = "Hai vinto!";
 }
