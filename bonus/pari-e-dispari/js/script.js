@@ -31,7 +31,11 @@ function userNumber() {
         // Chiamo la funzione per proseguire il gioco
         isEvenOrOdd();
     } else {
-        alert("Inserisci un numero valido, tra 1 e 5");
+        finalResult.classList.add("d-none");
+        finalResultLose.classList.remove("d-none");
+        machineNumberResult.classList.add("d-none");
+        sumResult.classList.add("d-none");
+        finalResultLose.innerHTML = "Inserisci un numero valido: tra 1 e 5";
     }
 }
 
@@ -72,6 +76,6 @@ function displayResultLose() {
 }
 
 // Funzione che cambia le classi degli elementi se si vince
-function displayResultWin(){
+function displayResultWin() {
     finalResult.innerHTML = "Hai vinto!";
 }
