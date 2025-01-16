@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@
 
 <body>
     <header>
-        <nav class="navbar bg-body-tertiary">
+        <nav class="navbar bg-body-tertiary" data-bs-theme="dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
                     <img src="./img/logo.svg" alt="Logo" width="120" height="96">
@@ -20,34 +20,37 @@
             </div>
         </nav>
     </header>
-    <main class="container my-3">
-        <h1 class="my-4">Pari o dispari</h1>
+    <main>
+        <div class="container my-3">
+            <div class="row row-col">
+                <div class="col">
+                    <h1 class="my-4">Pari o dispari</h1>
 
-        <!-- Input dati dall'utente -->
-        <div class="col-md-6">
-            <label for="exampleFormControlTextarea1" class="form-label">Pari o dispari?</label>
-            <select class="form-select mb-3 selectOpt" aria-label="Default select example">
-                <option value="pari">Pari</option>
-                <option value="dispari">Dispari</option>
-            </select>
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Inserisci un numero tra 1 e 5</label>
-                <textarea class="form-control userNumber" id="exampleFormControlTextarea1" rows="1"></textarea>
-            </div>
-            <button type="button" class="btn btn-primary confirm mb-5">Conferma</button>
+                    <!-- Input dati dall'utente -->
+                    <form class="inputForm">
+                        <div class="col-md-6">
+                            <label for="exampleFormControlTextarea1" class="form-label">Pari o dispari?</label>
+                            <select class="form-select mb-3 selectOpt" aria-label="Default select example">
+                                <option value="pari">Pari</option>
+                                <option value="dispari">Dispari</option>
+                            </select>
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">Inserisci un numero tra 1 e 5</label>
+                                <input type="text" class="form-control userNumber" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary confirm mb-5">Conferma</button>
 
-            <!-- output del risultato -->
-            <div class="alert alert-dark my-3 machineNumberResult" role="alert">
-                Numero generato dalla macchina:
-            </div>
-            <div class="alert alert-dark my-3 sumResult" role="alert">
-                La somma dei numeri è:
-            </div>
-            <div class="alert alert-success my-3 finalResult" role="alert">
-                -
-            </div>
-            <div class="alert alert-danger my-3 finalResultLose d-none" role="alert">
-                -
+                            <!-- output dei risultati -->
+                            <input class="form-control machineNumberResult mb-2" type="text" value="Numero generato dalla macchina: " disabled readonly>
+                            <input class="form-control sumResult mb-3" type="text" value="La somma dei numeri è: " disabled readonly>
+                            <input class="form-control finalResult mb-2" type="text" value="Risultato" disabled readonly>
+
+                            <div class="alert alert-danger d-none wrongInput" role="alert">
+                                Inserisci un numero valido: tra 1 e 5
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </main>

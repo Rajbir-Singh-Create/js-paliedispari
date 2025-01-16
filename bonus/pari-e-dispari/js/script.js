@@ -1,41 +1,44 @@
 // Dichiarazione variabili
-const confirmButton = document.querySelector(".confirm");
-let selectedValue;
+const inputForm = document.querySelector(".inputForm");
+let selectedOption = document.querySelector(".selectOpt");
 let userNum = document.querySelector(".userNumber");
-let machineNum;
-let machineNumberResult = document.querySelector(".machineNumberResult");
+let machineNum = document.querySelector(".machineNumberResult");
 let sumResult = document.querySelector(".sumResult");
 let finalResult = document.querySelector(".finalResult");
-let finalResultLose = document.querySelector(".finalResultLose");
+const wrongInput = document.querySelector(".wrongInput");
 
-// Al click del bottone
-confirmButton.addEventListener("click", function () {
-    // Ottengo il valore dell'opzione selezionata
-    let selectElement = document.querySelector(".selectOpt");
-    selectedValue = selectElement.value;
-    // console.log("Valore selezionato:", selectedValue);
+// Al click del bottone / invio del form
+inputForm.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-    // Chiamo la funzione che elabora l'inserimento del numero dall'utente
-    userNumber();
+    // Chiamo la funzione che elabora l'inserimento dei dati inseriti
+    userInput();
 });
 
+// Elaborazione dei dati inseriti
+function userInput() {
+    // Ottengo il valore dell'opzione selezionata
+    selectedOption = selectedOption.value;
 
-function userNumber() {
+    // Ottengo l'input inserito dall'utente e lo converto in un dato di tipo int
     userNum = userNum.value;
     userNum = parseInt(userNum);
 
-    // Controllo degli input inseriti dall'utente
+    // Controllo validità degli input inseriti dall'utente
     if (userNum > 0 && userNum <= 5) {
-        // Chiamo la funzione per generare il numero dalla macchina
-        machineNumberResult.innerHTML = `Numero generato dalla macchina: ${machineNumber(1, 5)}`;
-        // Chiamo la funzione per proseguire il gioco
-        isEvenOrOdd();
+        // Chiamo la funzione per generare il numero dalla macchina e lo assegno alla variabile
+        machineNum.value = `Numero generato dalla macchina: ${machineNumber(1, 5)}`;
+        
+        // Chiamo la funzione che esegue la somma dei due numeri
+        sumResult.value = `La somma dei numeri è: ${numSum(machineNum, userNum)}`;
+
+        // Chiamo la funzione per decidere se la somma è pari o dispari
+        finalResult.value = isEvenOrOdd(selectedOption, sumResult);
     } else {
-        finalResult.classList.add("d-none");
-        finalResultLose.classList.remove("d-none");
-        machineNumberResult.classList.add("d-none");
         sumResult.classList.add("d-none");
-        finalResultLose.innerHTML = "Inserisci un numero valido: tra 1 e 5";
+        machineNum.classList.add("d-none");
+        wrongInput.classList.remove("d-none");
+        finalResult.classList.add("d-none");
     }
 }
 
@@ -46,36 +49,19 @@ function machineNumber(min, max) {
     return machineNum;
 }
 
+// Somma del numero inserito dall'utente con quello generato dalla macchina
+function numSum(num1, num2){
+    sumResult = num1 + num2;
+    return sumResult;
+}
 
-// Stabiliamo se la somma dei due numeri è pari o dispari (usando una funzione)
-// Dichiariamo chi ha vinto
-function isEvenOrOdd() {
-    // Somma dei due numeri
-    const sum = machineNum + userNum;
-    sumResult.innerHTML = `La somma dei numeri è: ${sum}`;
-
-    // Controllo se il numero è pari o dispari
+// Stabiliamo se la somma dei due numeri è pari o dispari
+function isEvenOrOdd(option, result) {
     const mod = 0;
 
-    if (selectedValue === "pari" && mod === sum % 2) {
-        displayResultWin()
-    } else if (selectedValue === "dispari" && mod !== sum % 2) {
-        displayResultWin()
-    } else if (selectedValue === "pari" && mod !== sum % 2) {
-        displayResultLose()
-    } else if (selectedValue === "dispari" && mod === sum % 2) {
-        displayResultLose()
+    if ((option === "pari" && mod === result % 2) || (option === "dispari" && mod !== result % 2)) {
+        return finalResult = "Hai vinto!";
+    } else if ((option === "pari" && mod !== result % 2) || (option === "dispari" && mod === result % 2)) {
+        return finalResult = "Hai perso!";
     }
-}
-
-// Funzione che cambia le classi degli elementi se si perde
-function displayResultLose() {
-    finalResult.classList.add("d-none");
-    finalResultLose.classList.remove("d-none");
-    finalResultLose.innerHTML = "Hai perso!";
-}
-
-// Funzione che cambia le classi degli elementi se si vince
-function displayResultWin() {
-    finalResult.innerHTML = "Hai vinto!";
 }
