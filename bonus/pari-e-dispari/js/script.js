@@ -20,7 +20,7 @@ inputForm.addEventListener("submit", function (event) {
     userInput();
 });
 
-// Controllo la validità dell'input inserito dall'utente
+// Elaborazione dei dati
 function userInput() {
     // Ottengo il valore dell'input inserito dall'utente e lo converto in un dato di tipo int
     let userNum = userNumber.value;
@@ -29,7 +29,18 @@ function userInput() {
     // Controllo validità dell'input inserito dall'utente
     if (userNum > 0 && userNum <= 5) {
         // Continua il gico
-        game();
+        // Chiamo la funzione per generare il numero dalla macchina e lo assegno alla variabile machineNum
+        const machineNum = machineNumberCalc(1, 5);
+        machineNumber.value = `Numero generato dalla macchina: ${machineNum}`;
+
+        // Chiamo la funzione che esegue la somma dei due numeri e salvo il risultato in una variabile
+        const sumRes = numSumCalc(machineNum, userNum);
+        sumResult.value = `La somma dei numeri è: ${sumRes}`;
+
+        // Ottengo il valore dell'opzione selezionata dall'utente
+        const selectOpt = selectedOption.value;
+        // Chiamo la funzione per decidere se la somma è pari o dispari
+        isEvenOrOdd(selectOpt, sumRes);
 
         outputElements.classList.remove("d-none");
         wrongInput.classList.add("d-none");
@@ -38,22 +49,6 @@ function userInput() {
         outputElements.classList.add("d-none");
         wrongInput.classList.remove("d-none");
     }
-}
-
-// Elaborazione dei dati inseriti
-function game() {
-    // Chiamo la funzione per generare il numero dalla macchina e lo assegno alla variabile machineNum
-    const machineNum = machineNumberCalc(1, 5);
-    machineNumber.value = `Numero generato dalla macchina: ${machineNum}`;
-
-    // Chiamo la funzione che esegue la somma dei due numeri e salvo il risultato in una variabile
-    const sumRes = numSumCalc(machineNum, userNum);
-    sumResult.value = `La somma dei numeri è: ${sumRes}`;
-
-    // Ottengo il valore dell'opzione selezionata dall'utente
-    const selectOpt = selectedOption.value;
-    // Chiamo la funzione per decidere se la somma è pari o dispari
-    isEvenOrOdd(selectOpt, sumRes);
 }
 
 // Generazione numero random dalla macchina
