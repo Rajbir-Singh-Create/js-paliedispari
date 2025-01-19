@@ -20,7 +20,7 @@ inputForm.addEventListener("submit", function (event) {
     userInput();
 });
 
-// Elaborazione dei dati inseriti
+// Controllo la validità dell'input inserito dall'utente
 function userInput() {
     // Ottengo il valore dell'input inserito dall'utente e lo converto in un dato di tipo int
     let userNum = userNumber.value;
@@ -28,18 +28,8 @@ function userInput() {
 
     // Controllo validità dell'input inserito dall'utente
     if (userNum > 0 && userNum <= 5) {
-        // Chiamo la funzione per generare il numero dalla macchina e lo assegno alla variabile machineNum
-        const machineNum = machineNumberCalc(1, 5);
-        machineNumber.value = `Numero generato dalla macchina: ${machineNum}`;
-        
-        // Chiamo la funzione che esegue la somma dei due numeri e salvo il risultato in una variabile
-        const sumRes = numSumCalc(machineNum, userNum);
-        sumResult.value = `La somma dei numeri è: ${sumRes}`;
-
-        // Ottengo il valore dell'opzione selezionata dall'utente
-        const selectOpt = selectedOption.value;
-        // Chiamo la funzione per decidere se la somma è pari o dispari
-        isEvenOrOdd(selectOpt, sumRes);
+        // Continua il gico
+        game();
 
         outputElements.classList.remove("d-none");
         wrongInput.classList.add("d-none");
@@ -50,6 +40,22 @@ function userInput() {
     }
 }
 
+// Elaborazione dei dati inseriti
+function game() {
+    // Chiamo la funzione per generare il numero dalla macchina e lo assegno alla variabile machineNum
+    const machineNum = machineNumberCalc(1, 5);
+    machineNumber.value = `Numero generato dalla macchina: ${machineNum}`;
+
+    // Chiamo la funzione che esegue la somma dei due numeri e salvo il risultato in una variabile
+    const sumRes = numSumCalc(machineNum, userNum);
+    sumResult.value = `La somma dei numeri è: ${sumRes}`;
+
+    // Ottengo il valore dell'opzione selezionata dall'utente
+    const selectOpt = selectedOption.value;
+    // Chiamo la funzione per decidere se la somma è pari o dispari
+    isEvenOrOdd(selectOpt, sumRes);
+}
+
 // Generazione numero random dalla macchina
 function machineNumberCalc(min, max) {
     const macNum = Math.round(Math.random() * (max - min) + min);
@@ -57,7 +63,7 @@ function machineNumberCalc(min, max) {
 }
 
 // Somma del numero inserito dall'utente con quello generato dalla macchina
-function numSumCalc(num1, num2){
+function numSumCalc(num1, num2) {
     const sum = num1 + num2;
     return sum;
 }
