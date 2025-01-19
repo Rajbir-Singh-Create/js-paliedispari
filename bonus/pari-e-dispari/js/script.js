@@ -1,15 +1,18 @@
 // Dichiarazione variabili
 const inputForm = document.querySelector(".inputForm");
-const outputElements = document.querySelector(".outputElements");
-let selectedOption = document.querySelector(".selectOpt");
-let userNum = document.querySelector(".userNumber");
-let machineNum = document.querySelector(".machineNumberResult");
-let sumResult = document.querySelector(".sumResult");
-let finalRes = document.querySelector(".finalResult");
-const wrongInput = document.querySelector(".wrongInput");
-let machineNumber = 0;
 
-// Al click del bottone / invio del form
+// Input dell'utente
+let selectedOption = document.querySelector(".selectOpt");
+let userNumber = document.querySelector(".userNumber");
+
+// Gruppo di elementi che mostrano i risultati
+const outputElements = document.querySelector(".outputElements");
+let machineNumber = document.querySelector(".machineNumberResult");
+let sumResult = document.querySelector(".sumResult");
+let finalResult = document.querySelector(".finalResult");
+const wrongInput = document.querySelector(".wrongInput");
+
+// Al click del bottone / invio del form:
 inputForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -19,43 +22,44 @@ inputForm.addEventListener("submit", function (event) {
 
 // Elaborazione dei dati inseriti
 function userInput() {
-    // Ottengo il valore dell'opzione selezionata
-    let selectOpt = selectedOption.value;
+    // Ottengo il valore dell'input inserito dall'utente e lo converto in un dato di tipo int
+    let userNum = userNumber.value;
+    userNum = parseInt(userNum);
 
-    // Ottengo l'input inserito dall'utente e lo converto in un dato di tipo int
-    let userNumber = userNum.value;
-    userNumber = parseInt(userNumber);
-
-    // Controllo validità degli input inseriti dall'utente
-    if (userNumber > 0 && userNumber <= 5) {
-        // Chiamo la funzione per generare il numero dalla macchina e lo assegno alla variabile
-        machineNum.value = `Numero generato dalla macchina: ${machineNumberCalc(1, 5)}`;
+    // Controllo validità dell'input inserito dall'utente
+    if (userNum > 0 && userNum <= 5) {
+        // Chiamo la funzione per generare il numero dalla macchina e lo assegno alla variabile machineNum
+        const machineNum = machineNumberCalc(1, 5);
+        machineNumber.value = `Numero generato dalla macchina: ${machineNum}`;
         
-        // Chiamo la funzione che esegue la somma dei due numeri
-        let sumRes = numSumCalc(machineNumber, userNumber);
+        // Chiamo la funzione che esegue la somma dei due numeri e salvo il risultato in una variabile
+        const sumRes = numSumCalc(machineNum, userNum);
         sumResult.value = `La somma dei numeri è: ${sumRes}`;
 
+        // Ottengo il valore dell'opzione selezionata dall'utente
+        const selectOpt = selectedOption.value;
         // Chiamo la funzione per decidere se la somma è pari o dispari
         isEvenOrOdd(selectOpt, sumRes);
 
         outputElements.classList.remove("d-none");
         wrongInput.classList.add("d-none");
     } else {
+        // Altrimenti mostra il messaggio di errore
         outputElements.classList.add("d-none");
         wrongInput.classList.remove("d-none");
     }
 }
 
-// Generazione numero random dalla macchina con una funzione
+// Generazione numero random dalla macchina
 function machineNumberCalc(min, max) {
-    machineNumber = Math.round(Math.random() * (max - min) + min);
-    return machineNumber;
+    const macNum = Math.round(Math.random() * (max - min) + min);
+    return macNum;
 }
 
 // Somma del numero inserito dall'utente con quello generato dalla macchina
 function numSumCalc(num1, num2){
-    let sumRes = num1 + num2;
-    return sumRes;
+    const sum = num1 + num2;
+    return sum;
 }
 
 // Stabiliamo se la somma dei due numeri è pari o dispari
@@ -63,10 +67,10 @@ function isEvenOrOdd(option, result) {
     const mod = 0;
 
     if ((option === "pari" && result % 2 === mod) || (option === "dispari" && result % 2 !== mod)) {
-        finalRes.value = "Hai vinto!";
-        return finalRes;
+        finalResult.value = "Hai vinto!";
+        return finalResult;
     } else if ((option === "pari" && result % 2 !== mod) || (option === "dispari" && result % 2 === mod)) {
-        finalRes.value = "Hai perso!";
-        return finalRes;
+        finalResult.value = "Hai perso!";
+        return finalResult;
     }
 }
