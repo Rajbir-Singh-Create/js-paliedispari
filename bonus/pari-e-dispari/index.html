@@ -41,7 +41,7 @@
                             <button type="submit" class="btn btn-primary confirm mb-5">Conferma</button>
 
                             <!-- output dei risultati -->
-                             <div class="outputElements">
+                             <div class="outputElements mb-5">
                                 <input class="form-control machineNumberResult mb-2" type="text" value="Numero generato dalla macchina: " disabled readonly>
                                 <input class="form-control sumResult mb-3" type="text" value="La somma dei numeri è: " disabled readonly>
                                 <input class="form-control finalResult mb-2" type="text" value="Risultato" disabled readonly>
@@ -49,6 +49,20 @@
                             <div class="alert alert-danger d-none wrongInput" role="alert">
                                 Inserisci un numero valido: tra 1 e 5
                             </div>
+
+                            <!-- Storico risultati -->
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Storico risultati</th>
+                                  </tr>
+                                </thead>
+                                <tbody class="tbody">
+                                    <!-- <tr>
+                                        <td>ciao</td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
                         </div>
                     </form>
                 </div>

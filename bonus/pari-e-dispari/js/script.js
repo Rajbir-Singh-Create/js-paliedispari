@@ -1,5 +1,6 @@
 // Dichiarazione variabili
 const inputForm = document.querySelector(".inputForm");
+const table = document.querySelector(".table");
 
 // Input dell'utente
 let selectedOption = document.querySelector(".selectOpt");
@@ -11,6 +12,8 @@ let machineNumber = document.querySelector(".machineNumberResult");
 let sumResult = document.querySelector(".sumResult");
 let finalResult = document.querySelector(".finalResult");
 const wrongInput = document.querySelector(".wrongInput");
+
+const resultsHistory = [];
 
 // Al click del bottone / invio del form:
 inputForm.addEventListener("submit", function (event) {
@@ -69,9 +72,29 @@ function isEvenOrOdd(option, result) {
 
     if ((option === "pari" && result % 2 === mod) || (option === "dispari" && result % 2 !== mod)) {
         finalResult.value = "Hai vinto!";
-        return finalResult;
+        // return finalResult;
     } else if ((option === "pari" && result % 2 !== mod) || (option === "dispari" && result % 2 === mod)) {
         finalResult.value = "Hai perso!";
-        return finalResult;
+        // return finalResult;
     }
+
+    historyResults();
+}
+
+function historyResults(){
+    // TODO: invertire l'ordine dello storico
+    // TODO: dare lo stile ai vecchi risultati
+    
+    // console.log(finalResult.value)
+    resultsHistory.push(finalResult.value);
+
+    // const reversedResultsHistory = resultsHistory.reverse();
+
+    const historyElement = createRow();
+    table.innerHTML += historyElement;
+    console.log(resultsHistory);
+}
+
+function createRow(){
+    return `<tr><td>${finalResult.value}</td></tr>`;
 }
