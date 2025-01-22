@@ -1,6 +1,7 @@
-// Dichiarazione variabili
+// Dichiarazione variabili utili
 const inputForm = document.querySelector(".inputForm");
 const table = document.querySelector(".table");
+const cleanHistoryBtn = document.querySelector(".cleanHistoryBtn");
 
 // Input dell'utente
 let selectedOption = document.querySelector(".selectOpt");
@@ -13,13 +14,13 @@ let sumResult = document.querySelector(".sumResult");
 let finalResult = document.querySelector(".finalResult");
 const wrongInput = document.querySelector(".wrongInput");
 
-const resultsHistory = [];
+const resultsHistory = []; //*
 
 // Al click del bottone / invio del form:
 inputForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    // Chiamo la funzione che elabora l'inserimento dei dati inseriti
+    // Chiamo la funzione che elabora l'inserimento dei dati
     userInput();
 });
 
@@ -31,7 +32,7 @@ function userInput() {
 
     // Controllo validità dell'input inserito dall'utente
     if (userNum > 0 && userNum <= 5) {
-        // Continua il gico
+        // Continua il gioco
         // Chiamo la funzione per generare il numero dalla macchina e lo assegno alla variabile machineNum
         const machineNum = machineNumberCalc(1, 5);
         machineNumber.value = `Numero generato dalla macchina: ${machineNum}`;
@@ -45,6 +46,7 @@ function userInput() {
         // Chiamo la funzione per decidere se la somma è pari o dispari
         isEvenOrOdd(selectOpt, sumRes);
 
+        // Mostra i risultati
         outputElements.classList.remove("d-none");
         wrongInput.classList.add("d-none");
     } else {
@@ -52,6 +54,9 @@ function userInput() {
         outputElements.classList.add("d-none");
         wrongInput.classList.remove("d-none");
     }
+
+    // Chiamo la funzione che popola la tabella dello storico dei risultati
+    historyResults();
 }
 
 // Generazione numero random dalla macchina
@@ -72,29 +77,52 @@ function isEvenOrOdd(option, result) {
 
     if ((option === "pari" && result % 2 === mod) || (option === "dispari" && result % 2 !== mod)) {
         finalResult.value = "Hai vinto!";
-        // return finalResult;
     } else if ((option === "pari" && result % 2 !== mod) || (option === "dispari" && result % 2 === mod)) {
         finalResult.value = "Hai perso!";
-        // return finalResult;
+    }
+}
+
+// Funzione che popola la tabella con i risultati
+function historyResults() {
+    // TODO: invertire l'ordine dello storico
+
+    // Inseriamo il risultato all'interno di un array
+    resultsHistory.unshift(finalResult.value); //*
+
+    // Diamo lo stile ai vecchi risultati
+    if (finalResult.value === "Hai vinto!") {
+        table.innerHTML += `<tr class="table-success"><td>${finalResult.value}</td></tr>`;
+    } else if (finalResult.value === "Hai perso!") {
+        table.innerHTML += `<tr class="table-danger"><td>${finalResult.value}</td></tr>`;
     }
 
-    historyResults();
+    // const reversedResultsHistory = resultsHistory.reverse(); //*
+    console.log(resultsHistory); //*
 }
 
-function historyResults(){
-    // TODO: invertire l'ordine dello storico
-    // TODO: dare lo stile ai vecchi risultati
-    
-    // console.log(finalResult.value)
-    resultsHistory.push(finalResult.value);
+// Funzione per pulire lo storico delle partite
+cleanHistoryBtn.addEventListener("click", function () {
+    if (confirm("Sei sicuro di voler cancellare lo storico?") == true) {
 
-    // const reversedResultsHistory = resultsHistory.reverse();
+        // Elementi dello stato del bottone
+        const spinnerElement = cleanHistoryBtn.querySelector('#spinner');
+        const statusText = cleanHistoryBtn.querySelector('.status');
+        const originalStatusText = statusText.innerHTML;
 
-    const historyElement = createRow();
-    table.innerHTML += historyElement;
-    console.log(resultsHistory);
-}
+        // Cambio dello stato del bottone
+        cleanHistoryBtn.disabled = true;
+        spinnerElement.classList.toggle('d-none');
+        statusText.innerHTML = `Pulisco lo storico...`;
 
-function createRow(){
-    return `<tr><td>${finalResult.value}</td></tr>`;
-}
+        setTimeout(() => {
+            table.innerHTML = `<tr><th scope="col">Storico risultati</th></tr>`;
+
+            // Reset dello stato del bottone
+            cleanHistoryBtn.disabled = false;
+            spinnerElement.classList.toggle('d-none');
+            statusText.innerHTML = originalStatusText;
+        }, 1500);
+    } else {
+        return
+    }
+});
