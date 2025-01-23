@@ -1,6 +1,6 @@
 // Dichiarazione variabili utili
 const inputForm = document.querySelector(".inputForm");
-const table = document.querySelector(".table");
+const tableBody = document.querySelector(".tbody");
 const cleanHistoryBtn = document.querySelector(".cleanHistoryBtn");
 
 // Input dell'utente
@@ -14,13 +14,12 @@ let sumResult = document.querySelector(".sumResult");
 let finalResult = document.querySelector(".finalResult");
 const wrongInput = document.querySelector(".wrongInput");
 
-const resultsHistory = []; //*
+let resultsHistory = [];
 
 // Al click del bottone / invio del form:
 inputForm.addEventListener("submit", function (event) {
     event.preventDefault();
-
-    // Chiamo la funzione che elabora l'inserimento dei dati
+    // Chiamo la funzione che elabora l'inserimento dei dati e del gioco
     userInput();
 });
 
@@ -49,12 +48,14 @@ function userInput() {
         // Mostra i risultati
         outputElements.classList.remove("d-none");
         wrongInput.classList.add("d-none");
+
+        // Inseriamo il risultato all'interno di un array inizializzato in precedenza
+        resultsHistory.unshift(finalResult.value);
     } else {
         // Altrimenti mostra il messaggio di errore
         outputElements.classList.add("d-none");
         wrongInput.classList.remove("d-none");
     }
-
     // Chiamo la funzione che popola la tabella dello storico dei risultati
     historyResults();
 }
@@ -74,7 +75,6 @@ function numSumCalc(num1, num2) {
 // Stabiliamo se la somma dei due numeri è pari o dispari
 function isEvenOrOdd(option, result) {
     const mod = 0;
-
     if ((option === "pari" && result % 2 === mod) || (option === "dispari" && result % 2 !== mod)) {
         finalResult.value = "Hai vinto!";
     } else if ((option === "pari" && result % 2 !== mod) || (option === "dispari" && result % 2 === mod)) {
@@ -84,26 +84,29 @@ function isEvenOrOdd(option, result) {
 
 // Funzione che popola la tabella con i risultati
 function historyResults() {
-    // TODO: invertire l'ordine dello storico
+    tableBody.innerHTML = "";
+    
+    resultsHistory.forEach(function(element){
+        let row = document.createElement("tr");
+        let cell = document.createElement("td");
+        cell.innerHTML = element;
 
-    // Inseriamo il risultato all'interno di un array
-    resultsHistory.unshift(finalResult.value); //*
+        // Diamo lo stile ai vecchi risultati
+        if (element === "Hai vinto!"){
+            row.classList.add("table-success");
+        } else if (element === "Hai perso!"){
+            row.classList.add("table-danger");
+        }
 
-    // Diamo lo stile ai vecchi risultati
-    if (finalResult.value === "Hai vinto!") {
-        table.innerHTML += `<tr class="table-success"><td>${finalResult.value}</td></tr>`;
-    } else if (finalResult.value === "Hai perso!") {
-        table.innerHTML += `<tr class="table-danger"><td>${finalResult.value}</td></tr>`;
-    }
-
-    // const reversedResultsHistory = resultsHistory.reverse(); //*
-    console.log(resultsHistory); //*
+        row.appendChild(cell);   
+        tableBody.appendChild(row);
+    });
+    console.log(resultsHistory);
 }
 
 // Funzione per pulire lo storico delle partite
 cleanHistoryBtn.addEventListener("click", function () {
     if (confirm("Sei sicuro di voler cancellare lo storico?") == true) {
-
         // Elementi dello stato del bottone
         const spinnerElement = cleanHistoryBtn.querySelector('#spinner');
         const statusText = cleanHistoryBtn.querySelector('.status');
@@ -115,7 +118,9 @@ cleanHistoryBtn.addEventListener("click", function () {
         statusText.innerHTML = `Pulisco lo storico...`;
 
         setTimeout(() => {
-            table.innerHTML = `<tr><th scope="col">Storico risultati</th></tr>`;
+            // Pulisco la tabella e l'array
+            tableBody.innerHTML = ``;
+            resultsHistory = [];
 
             // Reset dello stato del bottone
             cleanHistoryBtn.disabled = false;
