@@ -83,6 +83,7 @@ function isEvenOrOdd(option, result) {
 }
 
 // Funzione che popola la tabella con i risultati
+//* Si poteva usare anche il insertBefore() senza utilizzare un array
 function historyResults() {
     tableBody.innerHTML = "";
     
